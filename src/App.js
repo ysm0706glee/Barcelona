@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState, useEffect } from "react";
 
-function App() {
+import axios from "axios";
+import useSWR from "swr";
+
+import Match from "./components/Match";
+
+const fetcher = (url) =>
+  axios.get(url).then((res) => {
+    return res.data[0];
+  });
+
+const App = () => {
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const [date, setDate] = useState(null);
+
+  const { data } = useSWR(shouldFetch ? `/match/${date}` : null, fetcher);
+
+  useEffect(() => {
+    if (date) {
+      setShouldFetch(true);
+    }
+  }, [date]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <form>
+        <input
+          type="date"
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+        />
+      </form>
+      <Match data={data} />
+    </>
   );
-}
+};
 
 export default App;
