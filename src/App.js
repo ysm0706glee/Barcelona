@@ -24,8 +24,8 @@ const App = () => {
   }, [date]);
 
   return (
-    <>
-      <form>
+    <div className="min-h-screen bg-slate-900">
+      <form className="mb-20">
         <input
           type="date"
           onChange={(e) => {
@@ -34,7 +34,7 @@ const App = () => {
         />
       </form>
       <Match data={data} />
-    </>
+    </div>
   );
 };
 

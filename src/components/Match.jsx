@@ -5,13 +5,14 @@ const Match = ({ data }) => {
   return (
     <>
       {data ? (
-        <div>
+        <div className="bg-gray-800 text-white flex flex-col items-center content-center w-9/12 mx-auto p-12 drop-shadow-2xl">
           <div>
             <span>{data.league.name}</span>
             <span> ・ </span>
             <span>{format(new Date(data.fixture.date), "MMM d, H:mm")}</span>
           </div>
-          <div className="flex justify-around">
+
+          <div className="w-9/12 flex justify-around">
             <div>
               <img
                 src={data.teams.home.logo}
